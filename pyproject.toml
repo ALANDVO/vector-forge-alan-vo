@@ -1,0 +1,77 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vector-forge"
+version = "1.0.0"
+description = "Reverse engineer anything with agents, from app behavior down to native binaries"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.12"
+authors = [
+    {name = "Alan Vo", email = "alanvo@gmail.com"}
+]
+maintainers = [
+    {name = "Alan Vo", email = "alanvo@gmail.com"}
+]
+keywords = [
+    "reverse-engineering",
+    "mcp",
+    "static-analysis",
+    "javascript",
+    "binary-analysis",
+    "ghidra",
+    "ai-agents"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Debuggers",
+    "Topic :: Security",
+]
+dependencies = [
+    "fastapi==0.115.0",
+    "uvicorn[standard]==0.32.0",
+    "sqlalchemy==2.0.36",
+    "pydantic==2.9.2",
+    "pydantic-settings==2.5.2",
+    "python-jose[cryptography]==3.3.0",
+    "authlib==1.3.1",
+    "python-multipart==0.0.9",
+    "httpx==0.28.1",
+    "structlog==24.4.0",
+    "python-dotenv==1.0.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.3.4",
+    "pytest-asyncio==0.24.0",
+    "pytest-httpx==0.28.0",
+    "pytest-cov==6.0.0",
+    "alembic==1.13.2",
+]
+
+[tool.setuptools.packages.find]
+where = ["backend"]
+include = ["app*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["backend/tests"]
+pythonpath = ["backend"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest==8.3.4",
+    "pytest-asyncio==0.24.0",
+    "pytest-httpx==0.28.0",
+    "pytest-cov==6.0.0",
+    "alembic==1.13.2",
+]

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "name": "vector-forge-alan-vo",
+  "owner": "ALANDVO",
+  "email": "alanvo@gmail.com",
+  "domain": "AI/ML developer tools",
+  "summary": "Work in progress: vector-forge-alan-vo",
+  "workflows": [
+    "Analyze JavaScript/TypeScript applications via MCP to extract functions, call graphs, and imports with evidence IDs for follow-up queries",
+    "Create and manage binary analysis sessions with Ghidra headless, including snapshot caching and pre-imported project support",
+    "Capture and compare process execution traces with per-facet explanations distinguishing content, exit outcome, and temporal differences"
+  ],
+  "auth": "oidc-keycloak-saml-broker",
+  "llm_providers": [
+    "openai-compatible",
+    "anthropic",
+    "gemini",
+    "ollama"
+  ],
+  "status": "work-in-progress"
+}
