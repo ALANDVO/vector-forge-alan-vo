@@ -1,6 +1,29 @@
 # Changelog
 
-## 1.0.0 — work-in-progress checkpoint
+## 1.1.0 — work-in-progress checkpoint
+
+Partial code published for continued development. Known issues: STATUS.md.
+
+## [1.0.1] - 2026-10-20
+
+### Added
+- Complete frontend authentication flow with AuthProvider, LoginPage, and LoginCallback components
+- Backend auth API endpoints: `/auth/login`, `/auth/callback`, `/auth/logout`, `/auth/me`, `/auth/refresh`
+- OIDC authorization code flow with PKCE support
+- Demo mode login for localhost development
+- User dropdown menu in sidebar with logout option
+- Protected routes with automatic redirect to login
+- DropdownMenu UI component using Radix UI
+
+### Changed
+- Updated App.tsx with authentication routing (PrivateRoute, login/callback routes)
+- Updated Layout.tsx with user menu and logout button
+- Updated frontend tests to mock authentication
+
+### Security
+- HttpOnly cookies for access/refresh tokens
+- State and nonce validation in OIDC callback
+- Demo mode restricted to localhost only
 
 Partial code published for continued development. Known issues: STATUS.md.
 

@@ -120,7 +120,16 @@ class ApiClient {
     const response = await this.client.get(`/sessions/${sessionId}/evidence/${evidenceId}/imports`)
     return response.data
   }
+  // Generic methods for auth
+  async get<T = any>(url: string, config?: any) {
+    const response = await this.client.get<T>(url, config)
+    return response
+  }
 
+  async post<T = any>(url: string, data?: any, config?: any) {
+    const response = await this.client.post<T>(url, data, config)
+    return response
+  }
   async exportSession(sessionId: string) {
     const response = await this.client.get(`/sessions/${sessionId}/export`, {
       responseType: 'blob',
