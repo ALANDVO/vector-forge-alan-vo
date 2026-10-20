@@ -10,7 +10,7 @@ from structlog import get_logger
 
 from app.core.config import get_settings
 from app.core.database import init_db, close_db
-from app.api import health, evidence
+from app.api import health, evidence, auth
 from app.mcp import MCPServer, HTTPTransport, register_core_tools
 from app.services.evidence_service import EvidenceService
 from app.mcp.tools import set_evidence_service
@@ -82,7 +82,7 @@ def create_app() -> FastAPI:
 
     # Include routers
     app.include_router(health.router)
-    app.include_router(evidence.router)
+    app.include_router(auth.router)
 
     @app.get("/")
     async def root():
