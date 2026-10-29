@@ -11,8 +11,15 @@ from app.services.evidence_service import EvidenceService
 
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
-    async with get_session() as session:
+    session = await get_session()
+    try:
         yield session
+        await session.commit()
+    except Exception:
+        await session.rollback()
+        raise
+    finally:
+        await session.close()
 
 
 def get_evidence_service(db: AsyncSession = Depends(get_db)) -> EvidenceService:
