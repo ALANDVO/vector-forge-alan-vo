@@ -13,6 +13,7 @@ from app.core.config import get_settings
 class TokenPayload(BaseModel):
     sub: str
     email: Optional[str] = None
+    name: Optional[str] = None
     roles: list[str] = []
     exp: int
     iat: int
@@ -20,11 +21,11 @@ class TokenPayload(BaseModel):
     iss: Optional[str] = None
     nonce: Optional[str] = None
 
-
 @dataclass
 class Principal:
     user_id: str
     email: Optional[str]
+    name: Optional[str]
     roles: set[str]
 
     def has_role(self, role: str) -> bool:
@@ -119,6 +120,7 @@ def create_demo_principal() -> Principal:
     return Principal(
         user_id=settings.DEMO_USER_ID,
         email="demo@local",
+        name="Demo User",
         roles=roles,
     )
 
@@ -127,6 +129,7 @@ def token_to_principal(payload: TokenPayload) -> Principal:
     return Principal(
         user_id=payload.sub,
         email=payload.email,
+        name=payload.name,
         roles=set(payload.roles),
     )
 
