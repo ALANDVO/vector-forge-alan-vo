@@ -40,9 +40,13 @@ async def login(request: Request) -> Response:
             detail="OIDC not configured. Set OIDC_ISSUER_URL and OIDC_CLIENT_SECRET or enable DEMO_MODE for development.",
         )
 
-    # Generate PKCE parameters
+    # Generate PKCE parameters (RFC 7636 - S256 method)
     code_verifier = secrets.token_urlsafe(32)
-    code_challenge = code_verifier  # In production, use S256: base64url(sha256(code_verifier))
+    # code_challenge = base64url(sha256(code_verifier))
+    import hashlib
+    import base64
+    code_challenge_hash = hashlib.sha256(code_verifier.encode()).digest()
+    code_challenge = base64.urlsafe_b64encode(code_challenge_hash).decode().rstrip('=')
     state = secrets.token_urlsafe(16)
     nonce = secrets.token_urlsafe(16)
 
@@ -56,7 +60,7 @@ async def login(request: Request) -> Response:
         "state": state,
         "nonce": nonce,
         "code_challenge": code_challenge,
-        "code_challenge_method": "plain",  # Use "S256" in production
+        "code_challenge_method": "S256",
     }
 
     auth_url = f"{settings.OIDC_ISSUER_URL}/protocol/openid-connect/auth?{urlencode(params)}"
