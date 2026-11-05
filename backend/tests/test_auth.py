@@ -158,6 +158,27 @@ class TestAuthEndpoints:
         assert response.status_code == 503
         assert "OIDC not configured" in response.text
 
+    @pytest.mark.asyncio
+    async def test_login_oidc_uses_s256_pkce(self, oidc_settings):
+        """Test /login with OIDC enabled uses S256 PKCE method."""
+        app = create_app()
+        await init_db()
+        try:
+            transport = ASGITransport(app=app)
+            async with AsyncClient(transport=transport, base_url="http://test") as client:
+                response = await client.get("/auth/login", follow_redirects=False)
+                assert response.status_code == 307
+                # Verify redirect to Keycloak with S256 PKCE
+                location = response.headers["location"]
+                assert "code_challenge_method=S256" in location
+                assert "code_challenge=" in location
+                # Verify PKCE cookies are set
+                assert "oidc_state" in response.cookies
+                assert "oidc_code_verifier" in response.cookies
+                assert "oidc_nonce" in response.cookies
+        finally:
+            await close_db()
+
 
 class TestSecurityModule:
     """Test core security functions."""

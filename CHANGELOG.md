@@ -1,8 +1,16 @@
 # Changelog
 
+## 1.3.0 — work-in-progress checkpoint
+
+Partial code published for continued development. Known issues: STATUS.md.
+
 ## 1.2.0 — work-in-progress checkpoint
 
 Partial code published for continued development. Known issues: STATUS.md.
+
+### Security (this checkpoint)
+- Fixed PKCE implementation to use S256 (SHA-256) method per RFC 7636 instead of insecure `plain` method
+- Added test verifying S256 PKCE parameters in OIDC authorization request
 
 ## 1.1.0 — work-in-progress checkpoint
 
