@@ -156,3 +156,6 @@ Implementation: `backend/app/windows/authority.py`, `backend/app/windows/port.ts
 
 Tests: `backend/tests/test_windows_authority.py`
 
+---
+
+Alan Vo · [alanvo.net](https://alanvo.net)

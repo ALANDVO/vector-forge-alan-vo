@@ -80,3 +80,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SQLite persistent storage with WAL mode
 - Tailwind CSS for responsive UI
 - TanStack Query for server state management
+
+---
+
+Alan Vo · [alanvo.net](https://alanvo.net)
