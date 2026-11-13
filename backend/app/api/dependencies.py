@@ -33,15 +33,11 @@ async def get_current_principal(
 ) -> Principal:
     settings = get_settings()
 
-    # Demo mode: localhost only, requires demo_auth cookie
+    # Demo mode: localhost only, no auth header required
     if settings.demo_mode_allowed:
         client_host = request.client.host if request.client else "unknown"
         if client_host in ("127.0.0.1", "localhost", "::1"):
-            # Check if demo_auth cookie is present and true (set by /auth/login in demo mode)
-            if request.cookies.get("demo_auth") == "true":
-                return create_demo_principal()
-            # If demo_auth cookie missing, fall through to OIDC validation
-            # (the login endpoint is the only place that sets this cookie, so this prevents unauthorized demo principal access)
+            return create_demo_principal()
 
     # OIDC token validation
     if not authorization or not authorization.startswith("Bearer "):
