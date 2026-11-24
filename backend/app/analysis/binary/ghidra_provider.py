@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import os
 import subprocess
 from pathlib import Path
 from typing import Optional, Dict, Any, Tuple
@@ -170,6 +171,13 @@ class GhidraProvider:
 
     def _find_ghidra_jar(self) -> Optional[Path]:
         """Find the Ghidra launcher JAR file."""
+        # Check environment variable first
+        jar_env = os.environ.get("GHIDRA_JAR")
+        if jar_env is not None:
+            jar_path = Path(jar_env)
+            if jar_path.exists():
+                logger.info("ghidra_jar_from_env", path=str(jar_path))
+                return jar_path
         if self._ghidra_path is None:
             return None
         # Look for common Ghidra JAR names
