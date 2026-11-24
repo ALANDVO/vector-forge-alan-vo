@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "vector-forge"
-version = "1.6.0"
+version = "1.7.0"
 description = "Reverse engineer anything with agents, from app behavior down to native binaries"
 readme = "README.md"
 license = {text = "MIT"}
